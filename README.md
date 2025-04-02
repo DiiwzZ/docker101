@@ -5,7 +5,7 @@ This is a simple calculator web application built using Flask. It performs basic
 ## Project Structure
 
 ```
-calculator-app
+Lootbox-app
 ├── src
 │   ├── app.py
 ├── Dockerfile
