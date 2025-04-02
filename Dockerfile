@@ -1,23 +1,19 @@
-# Use an official Node.js runtime as a parent image
-FROM node:14
+FROM python:3.9-slim
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+COPY requirements.txt .
 
-# Install any needed packages
-RUN npm install
+RUN pip install --no-cache-dir -r requirements.txt flask
 
-# Copy the rest of the application code
-COPY . .
+ENV PORT=80
 
-# If using Express, ensure the public directory is copied
-COPY public /usr/src/app/public
+COPY src/ .
 
-# Make port 8080 available to the world outside this container
-EXPOSE 8080
+# Expose port 80 for Azure App Service
+EXPOSE 80
 
-# Run the application
-CMD ["npm", "start"] 
+# Use gunicorn for production-ready deployment
+RUN pip install gunicorn
+
+CMD ["gunicorn", "--bind", "0.0.0.0:80", "app:app", "--workers", "4", "--threads", "2"]
