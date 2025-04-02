@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unbox Case</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .refresh-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .refresh-btn:hover {
+            background-color: #45a049;
+        }
+        
+        .item-manager {
+            margin-top: 50px;
+            padding: 20px;
+            height: 300px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        
+        .item-row {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+        }
+        
+        .item-row img {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+        
+        .item-row button {
+            margin-left: auto;
+            padding: 5px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .delete-btn {
+            background-color: #ff4444;
+            color: white;
+        }
+        
+        .add-btn {
+            background-color: #4CAF50;
+            color: white;
+            margin-right: 10px;
+        }
+    </style>
+    <script src="jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="videos/background.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="video-overlay"></div>
+    <button class="refresh-btn" onclick="location.reload();">Refresh</button>
+    <button class="continue-btn" onclick="restartScrolling();">Continue</button>
+    <h1><br></h1>
+    <div style="text-align: center;">
+        <img src="images/logo.png" alt="LaLuuNaa Loot Box Logo" style="width: 800px; height: auto; margin: 15px;">
+    </div>
+    <div id="unbox-area">
+        <br />
+        <div class="arrow-down"></div>
+        <div id="cardList">
+            <div class="center-marker"></div>
+            <div class="card-container"></div>
+        </div>
+    </div>
+    <h1><br></h1>
+    <div class="content">
+    <button class="w3-block" onclick="openCase();"><h1>Open</h1></button>
+    <br><br><br><br><br><br><br><br><br>
+    <button class="collapse-btn" onclick="toggleItemManager()">
+        <span>Item Settings</span>
+        <span class="arrow">▼</span>
+    </button>
+</div>
+
+<div class="item-manager collapsed">
+    <div class="item-row">
+        <img src="images/common.jpg" alt="Common">
+        <span>Common Item</span>
+        <button class="add-btn" onclick="adjustItemRate('blue', 5)">+5%</button>
+        <button class="delete-btn" onclick="adjustItemRate('blue', -5)">-5%</button>
+    </div>
+    <div class="item-row">
+        <img src="images/uncommon.jpg" alt="Uncommon">
+        <span>Uncommon Item</span>
+        <button class="add-btn" onclick="adjustItemRate('purple', 5)">+5%</button>
+        <button class="delete-btn" onclick="adjustItemRate('purple', -5)">-5%</button>
+    </div>
+    <div class="item-row">
+        <img src="images/epic.jpg" alt="Epic">
+        <span>Epic Item</span>
+        <button class="add-btn" onclick="adjustItemRate('red', 2)">+2%</button>
+        <button class="delete-btn" onclick="adjustItemRate('red', -2)">-2%</button>
+    </div>
+    <div class="item-row">
+        <img src="images/legendary.jpg" alt="Legendary">
+        <span>Legendary Item</span>
+        <button class="add-btn" onclick="adjustItemRate('yellow', 1)">+1%</button>
+        <button class="delete-btn" onclick="adjustItemRate('yellow', -1)">-1%</button>
+    </div>
+    <div class="item-row">
+        <span>Animation Duration: <span id="duration-display">5000</span>ms</span>
+        <button class="add-btn" onclick="adjustDuration(500)">+500ms</button>
+        <button class="delete-btn" onclick="adjustDuration(-500)">-500ms</button>
+    </div>
+</div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
