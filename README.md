@@ -1,4 +1,4 @@
-# Calculator App
+# Lootbox App
 
 This is a simple calculator web application built using Flask. It performs basic arithmetic operations such as addition, subtraction, multiplication, and division. The application also displays the text "phanuruj 1650703554" on the webpage.
 
