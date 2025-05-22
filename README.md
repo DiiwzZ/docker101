@@ -1,67 +1,78 @@
 # Lootbox App
 
-This is a simple calculator web application built using Flask. It performs basic arithmetic operations such as addition, subtraction, multiplication, and division. The application also displays the text "phanuruj 1650703554" on the webpage.
+เว็บแอปพลิเคชันเครื่องคิดเลขอย่างง่ายสร้างด้วย Flask ที่สามารถทำการคำนวณพื้นฐานได้ เช่น บวก ลบ คูณ หาร แอปพลิเคชันจะแสดงข้อความ "phanuruj 1650703554" บนหน้าเว็บด้วย
 
-## Project Structure
+## โครงสร้างโปรเจกต์
 
 ```
 Lootbox-app
+├── .github
+│   └── workflows
+│       └── deploy-to-azure.yml
 ├── src
 │   ├── app.py
+├── static
+│   ├── index.html
+│   └── script.js
 ├── Dockerfile
 ├── requirements.txt
+├── startup.sh
 └── README.md
 ```
 
-## Requirements
+## ความต้องการระบบ
 
-- Python 3.x
-- Flask
+* Python 3.x
+* Flask
 
-## Installation
+## การติดตั้ง
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/calculator-app.git
-   cd calculator-app
-   ```
+1. โคลนรีโพสิทอรี่:  
+```  
+git clone https://github.com/yourusername/calculator-app.git  
+cd calculator-app  
+```
+2. ติดตั้งไลบรารีที่จำเป็น:  
+```  
+pip install -r requirements.txt  
+```
 
-2. Install the required dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
+## การรันแอปพลิเคชันในเครื่องโลคอล
 
-## Running the Application Locally
+รันคำสั่งต่อไปนี้เพื่อเริ่มต้นแอปพลิเคชันในเครื่องโลคอล:
 
-To run the application locally, execute the following command:
 ```
 python src/app.py
 ```
-The application will be accessible at `http://127.0.0.1:5000`.
 
-## Building the Docker Image
+แอปพลิเคชันจะทำงานที่ `http://127.0.0.1:8000`
 
-To build the Docker image, run the following command in the root directory of the project:
-```
-docker build -t calculator-app .
-```
+## การ Deploy ด้วย GitHub Actions ไปยัง Azure App Service
 
-## Running the Docker Container
+1. สร้าง Azure App Service ใน Azure Portal
 
-To run the Docker container, use the following command:
-```
-docker run -p 5000:5000 calculator-app
-```
-The application will be accessible at `http://localhost:5000`.
+2. รับ Publish Profile จาก Azure Portal:
+   - ไปที่ Azure App Service ของคุณ
+   - คลิกที่ "Get publish profile" เพื่อดาวน์โหลดไฟล์ publish profile
 
-## Deploying to Azure App Service
+3. เพิ่ม Secret ใน GitHub repository:
+   - ไปที่ repository ของคุณบน GitHub
+   - ไปที่ Settings > Secrets > Actions
+   - คลิกที่ "New repository secret"
+   - ตั้งชื่อ secret เป็น `AZURE_WEBAPP_PUBLISH_PROFILE`
+   - ใส่เนื้อหาจากไฟล์ publish profile ที่ดาวน์โหลดมา
+   - คลิก "Add secret"
 
-1. Push the Docker image to Docker Hub:
+4. ปรับแต่งไฟล์ `.github/workflows/deploy-to-azure.yml` (ถ้าจำเป็น):
+   - แก้ไขชื่อ `AZURE_WEBAPP_NAME` ให้ตรงกับชื่อของ App Service ของคุณ
+
+5. Push โค้ดไปที่ branch main:
    ```
-   docker tag calculator-app yourdockerhubusername/calculator-app
-   docker push yourdockerhubusername/calculator-app
+   git add .
+   git commit -m "Set up GitHub Actions deployment"
+   git push
    ```
 
-2. Create an Azure App Service and configure it to pull the Docker image from Docker Hub.
+6. GitHub Actions จะเริ่มทำงานโดยอัตโนมัติและ deploy แอปพลิเคชันไปยัง Azure App Service
 
-3. Access the application via the Azure App Service URL.
+7. หลังจาก deploy สำเร็จ คุณสามารถเข้าถึงแอปพลิเคชันได้ที่ URL ของ Azure App Service ของคุณ
